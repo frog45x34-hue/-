@@ -1,0 +1,1237 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<title>Колбочки мамы 💗</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap');
+:root{
+  --bg-0:#080610;
+  --bg-1:#0f0c1a;
+  --bg-2:#160f22;
+  --panel:#1a1428;
+  --panel-2:#221c32;
+  --panel-3:#2a2240;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.14);
+  --txt:#f0eaf8;
+  --txt-dim:#8878aa;
+  --txt-mid:#c4b8de;
+  --accent:#ff7eb3;
+  --accent-2:#b78bfa;
+  --accent-3:#7ee8fa;
+  --gold:#ffd166;
+  --gold-2:#ffb703;
+  --good:#4ade80;
+  --bad:#fb7185;
+  --radius:20px;
+  --ff:"Nunito",system-ui,sans-serif;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;margin:0;padding:0;touch-action:manipulation;}
+html,body{height:100%;background:var(--bg-0);color:var(--txt);font-family:var(--ff);overflow:hidden;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none;}
+body{
+  background:
+    radial-gradient(ellipse at 20% -5%, rgba(255,126,179,.18) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 5%, rgba(183,139,250,.16) 0%, transparent 45%),
+    radial-gradient(ellipse at 50% 100%, rgba(126,232,250,.08) 0%, transparent 55%),
+    linear-gradient(175deg, var(--bg-0) 0%, var(--bg-1) 50%, var(--bg-2) 100%);
+}
+#app{position:relative;width:100%;height:100vh;display:flex;}
+.screen{
+  flex:1;display:none;flex-direction:column;align-items:center;
+  width:100%;height:100%;overflow-y:auto;
+  -webkit-overflow-scrolling:touch;
+  padding:env(safe-area-inset-top,0) 0 28px 0;
+  animation:fadeIn .3s ease;
+}
+.screen.active{display:flex;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── Glass card ── */
+.card{
+  background:linear-gradient(145deg, rgba(255,255,255,.05) 0%, rgba(255,255,255,.02) 100%);
+  border:1px solid var(--line-2);
+  border-radius:var(--radius);
+  box-shadow:0 8px 32px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.06);
+  backdrop-filter:blur(16px);
+}
+
+/* ── Buttons ── */
+.btn{
+  font-family:var(--ff);cursor:pointer;border:none;
+  border-radius:14px;padding:13px 22px;
+  font-size:15px;font-weight:700;color:var(--txt);
+  background:linear-gradient(160deg,rgba(255,255,255,.08),rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.1);
+  transition:transform .15s,box-shadow .15s,filter .15s,background .15s;
+  box-shadow:0 4px 16px rgba(0,0,0,.35);
+  letter-spacing:.2px;
+}
+.btn:active{transform:scale(.95);}
+.btn:hover{filter:brightness(1.15);box-shadow:0 6px 20px rgba(0,0,0,.4);}
+.btn.primary{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#120820;box-shadow:0 6px 24px rgba(255,126,179,.35);border-color:transparent;
+}
+.btn.primary:hover{box-shadow:0 8px 28px rgba(255,126,179,.5);}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-2));color:#1a0e00;border-color:transparent;box-shadow:0 6px 20px rgba(255,183,3,.3);}
+.btn.teal{background:linear-gradient(135deg,#4ade80,#06d6a0);color:#011a0e;border-color:transparent;box-shadow:0 6px 20px rgba(6,214,160,.3);}
+.btn.hint-btn{background:linear-gradient(135deg,#7ee8fa,#4d8dff);color:#020e1a;border-color:transparent;box-shadow:0 6px 20px rgba(126,232,250,.3);}
+.btn:disabled{opacity:.38;cursor:not-allowed;filter:none;transform:none;box-shadow:none;}
+.btn.small{padding:8px 14px;font-size:13px;border-radius:11px;}
+.btn.icon{width:46px;height:46px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;font-size:19px;flex-shrink:0;}
+.btn.icon-sm{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;padding:0;font-size:16px;flex-shrink:0;}
+
+input.field{
+  width:100%;padding:13px 16px;border-radius:13px;
+  border:1.5px solid var(--line-2);
+  background:rgba(0,0,0,.3);color:var(--txt);font-size:15px;font-family:var(--ff);outline:none;
+  transition:border-color .2s,box-shadow .2s;
+  -webkit-user-select:text;user-select:text;
+}
+input.field:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(255,126,179,.15);}
+input.field::placeholder{color:var(--txt-dim);}
+
+.title-xl{
+  font-size:32px;font-weight:900;letter-spacing:.4px;
+  background:linear-gradient(135deg,var(--accent) 0%,var(--accent-2) 60%,var(--accent-3) 100%);
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+  line-height:1.1;
+}
+.muted{color:var(--txt-dim);}
+.mid{color:var(--txt-mid);}
+.row{display:flex;align-items:center;gap:10px;}
+.spacer{flex:1;}
+.coin{display:inline-flex;align-items:center;gap:5px;color:var(--gold);font-weight:800;}
+.coin::before{content:"◈";font-size:12px;}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;
+  background:rgba(255,209,102,.12);border:1px solid rgba(255,209,102,.25);
+  color:var(--gold);font-weight:700;font-size:13px;
+  padding:5px 12px;border-radius:30px;
+}
+
+/* ── Auth ── */
+#screen-auth{justify-content:center;background:none;}
+.auth-wrap{
+  width:min(400px,90vw);display:flex;flex-direction:column;align-items:center;gap:8px;
+}
+.auth-logo{
+  font-size:52px;margin-bottom:4px;
+  filter:drop-shadow(0 0 20px rgba(255,126,179,.5));
+  animation:floatLogo 3s ease-in-out infinite;
+}
+@keyframes floatLogo{0%,100%{transform:translateY(0);}50%{transform:translateY(-6px);}}
+.auth-box{width:100%;padding:28px 24px;display:flex;flex-direction:column;gap:12px;}
+.auth-tabs{display:flex;gap:5px;background:rgba(0,0,0,.3);padding:4px;border-radius:13px;margin-bottom:4px;}
+.auth-tabs button{
+  flex:1;padding:10px;border-radius:10px;border:none;
+  background:transparent;color:var(--txt-dim);font-weight:700;font-size:14px;cursor:pointer;
+  font-family:var(--ff);transition:all .2s;
+}
+.auth-tabs button.active{
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  color:#120820;box-shadow:0 4px 14px rgba(255,126,179,.3);
+}
+.auth-msg{min-height:18px;font-size:13px;color:var(--bad);text-align:center;font-weight:600;}
+.auth-divider{display:flex;align-items:center;gap:10px;color:var(--txt-dim);font-size:13px;}
+.auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--line-2);}
+
+/* ── Tutorial ── */
+#screen-tutorial{justify-content:center;}
+.tutorial-wrap{width:min(440px,92vw);display:flex;flex-direction:column;gap:0;}
+.tut-step{
+  display:flex;flex-direction:column;align-items:center;gap:20px;
+  padding:32px 28px;text-align:center;
+}
+.tut-icon{font-size:64px;filter:drop-shadow(0 0 16px rgba(255,126,179,.4));}
+.tut-title{font-size:22px;font-weight:900;color:var(--txt);}
+.tut-text{font-size:15px;color:var(--txt-mid);line-height:1.65;max-width:320px;}
+.tut-text strong{color:var(--accent);font-weight:800;}
+.tut-demo{display:flex;gap:10px;justify-content:center;margin:4px 0;}
+.tut-flask{
+  width:44px;height:120px;border:2.5px solid rgba(255,255,255,.25);border-top:none;
+  border-radius:0 0 12px 12px;display:flex;flex-direction:column-reverse;overflow:hidden;
+  box-shadow:inset 0 0 10px rgba(0,0,0,.4),0 4px 12px rgba(0,0,0,.3);
+}
+.tut-flask .tl{width:100%;flex:0 0 25%;}
+.tut-dots{display:flex;gap:8px;justify-content:center;margin-top:4px;}
+.tut-dot{width:8px;height:8px;border-radius:50%;background:var(--line-2);transition:all .3s;}
+.tut-dot.active{background:var(--accent);box-shadow:0 0 8px rgba(255,126,179,.6);}
+.tut-nav{display:flex;gap:10px;width:100%;padding:0 0 4px;}
+
+/* ── Menu ── */
+.topbar{width:100%;max-width:780px;display:flex;align-items:center;gap:12px;padding:16px 18px 8px;}
+.profile-pill{display:flex;align-items:center;gap:10px;padding:9px 14px;border-radius:30px;}
+.avatar{
+  width:36px;height:36px;border-radius:50%;flex-shrink:0;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:16px;color:#120820;
+  box-shadow:0 0 12px rgba(255,126,179,.4);
+}
+.menu-wrap{width:min(780px,94vw);display:flex;flex-direction:column;gap:20px;padding:8px 4px 24px;}
+.menu-title{
+  text-align:center;font-size:20px;font-weight:900;color:var(--txt-mid);
+  letter-spacing:.3px;
+}
+.diff-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;}
+.diff-card{
+  padding:22px 14px 18px;border-radius:22px;cursor:pointer;text-align:center;
+  position:relative;overflow:hidden;
+  transition:transform .22s cubic-bezier(.4,1.6,.6,1),box-shadow .22s;
+}
+.diff-card::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(circle at 50% -10%, rgba(255,255,255,.09), transparent 65%);
+  pointer-events:none;
+}
+.diff-card:hover{transform:translateY(-5px) scale(1.03);box-shadow:0 16px 36px rgba(0,0,0,.45);}
+.diff-card:active{transform:scale(.97);}
+.diff-card .dot{
+  width:44px;height:44px;border-radius:50%;margin:0 auto 12px;
+  box-shadow:0 0 20px 3px var(--dot-glow,transparent);
+  position:relative;
+}
+.diff-card .dot::after{
+  content:"";position:absolute;inset:4px;border-radius:50%;
+  background:rgba(255,255,255,.25);
+}
+.diff-card h3{margin:0 0 4px;font-size:15px;font-weight:800;}
+.diff-card p{margin:0;font-size:11.5px;color:var(--txt-dim);}
+.diff-card .prog{
+  margin-top:13px;font-size:11px;font-weight:800;letter-spacing:.4px;
+  background:linear-gradient(135deg,var(--accent),var(--accent-2));
+  -webkit-background-clip:text;background-clip:text;color:transparent;
+}
+.menu-footer{display:flex;gap:10px;}
+.menu-footer .btn{flex:1;}
+
+/* ── Game ── */
+#screen-game{justify-content:flex-start;overflow:hidden;}
+.game-top{
+  width:100%;max-width:780px;padding:12px 14px 4px;
+  display:flex;align-items:center;gap:8px;flex-shrink:0;
+}
+.game-info{padding:7px 14px;border-radius:12px;font-size:13px;font-weight:700;}
+.moves-badge{
+  padding:7px 14px;border-radius:12px;font-size:13px;font-weight:700;
+  background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--txt-mid);
+}
+.game-board{
+  flex:1;width:100%;max-width:960px;
+  display:flex;flex-wrap:wrap;align-content:center;justify-content:center;
+  gap:14px;padding:12px 10px;
+  overflow-y:auto;-webkit-overflow-scrolling:touch;
+}
+
+/* ── Flasks ── */
+.flask-wrap{display:flex;flex-direction:column;align-items:center;gap:6px;}
+.flask{
+  position:relative;width:58px;height:188px;
+  border:2.5px solid rgba(255,255,255,.2);border-top:none;
+  border-radius:0 0 16px 16px;
+  background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+  display:flex;flex-direction:column-reverse;overflow:hidden;
+  cursor:pointer;
+  transition:transform .3s cubic-bezier(.34,1.56,.64,1),box-shadow .25s,border-color .25s;
+  box-shadow:inset 0 0 14px rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.4);
+}
+.flask.shape-square{border-radius:0 0 5px 5px;}
+.flask.shape-cocktail{border:none;background:transparent;box-shadow:none;overflow:visible;}
+.flask.shape-cocktail .liquid-stack{clip-path:polygon(8% 0%,92% 0%,56% 60%,56% 100%,44% 100%,44% 60%);}
+.flask.shape-cocktail::before{
+  content:"";position:absolute;inset:0;
+  border:2.5px solid var(--flask-border,rgba(255,255,255,.2));
+  clip-path:polygon(8% 0%,92% 0%,56% 60%,56% 100%,44% 100%,44% 60%);
+  pointer-events:none;
+}
+.flask.shape-magic{border-radius:50% 50% 40% 40%/35% 35% 55% 55%;border-width:2.5px;}
+.flask.shape-round{border-radius:30px;}
+.flask.selected{
+  transform:translateY(-18px) scale(1.05);
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px rgba(255,126,179,.25),0 16px 28px rgba(0,0,0,.5),0 0 30px rgba(255,126,179,.2);
+}
+.flask.hint-from{
+  border-color:var(--accent-3) !important;
+  box-shadow:0 0 0 3px rgba(126,232,250,.3),0 0 20px rgba(126,232,250,.4) !important;
+  animation:hintPulse 1s ease-in-out infinite;
+}
+.flask.hint-to{
+  border-color:var(--good) !important;
+  box-shadow:0 0 0 3px rgba(74,222,128,.3),0 0 20px rgba(74,222,128,.4) !important;
+  animation:hintPulse2 1s ease-in-out infinite;
+}
+@keyframes hintPulse{0%,100%{box-shadow:0 0 0 3px rgba(126,232,250,.3),0 0 20px rgba(126,232,250,.25);}50%{box-shadow:0 0 0 5px rgba(126,232,250,.5),0 0 30px rgba(126,232,250,.5);}}
+@keyframes hintPulse2{0%,100%{box-shadow:0 0 0 3px rgba(74,222,128,.3),0 0 20px rgba(74,222,128,.25);}50%{box-shadow:0 0 0 5px rgba(74,222,128,.5),0 0 30px rgba(74,222,128,.5);}}
+.flask.shake{animation:shake .35s ease;}
+@keyframes shake{0%,100%{transform:translateX(0);}20%{transform:translateX(-7px);}60%{transform:translateX(7px);}80%{transform:translateX(-4px);}}
+.flask.win-glow{animation:winGlow 1s ease-in-out infinite;}
+@keyframes winGlow{0%,100%{box-shadow:0 0 8px 2px rgba(255,209,102,.3);}50%{box-shadow:0 0 24px 8px rgba(255,209,102,.8);}}
+.liquid-stack{display:flex;flex-direction:column-reverse;width:100%;height:100%;pointer-events:none;}
+.layer{
+  width:100%;flex:0 0 auto;position:relative;
+  transition:flex-basis .3s ease;
+  filter:hue-rotate(var(--hue,0deg));
+}
+.layer::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(180deg,rgba(255,255,255,.15) 0%,transparent 50%,rgba(0,0,0,.1) 100%);
+  pointer-events:none;
+}
+.layer.fx-glitter::before{
+  content:"";position:absolute;inset:0;z-index:1;
+  background-image:radial-gradient(circle,rgba(255,255,255,.9) 1px,transparent 1.5px);
+  background-size:8px 8px;opacity:.55;mix-blend-mode:overlay;
+  animation:glitterMove 2.8s linear infinite;
+}
+@keyframes glitterMove{from{background-position:0 0;}to{background-position:0 40px;}}
+.layer.fx-neon{filter:hue-rotate(var(--hue,0deg)) saturate(1.8) brightness(1.25);}
+.layer.fx-rainbow{animation:rainbowSpin 3s linear infinite;}
+@keyframes rainbowSpin{from{filter:hue-rotate(0deg) saturate(1.4);}to{filter:hue-rotate(360deg) saturate(1.4);}}
+.layer.fx-bubbles::before{
+  content:"";position:absolute;inset:0;
+  background-image:
+    radial-gradient(circle 3px at 25% 75%,rgba(255,255,255,.6),transparent 60%),
+    radial-gradient(circle 2px at 65% 55%,rgba(255,255,255,.5),transparent 60%),
+    radial-gradient(circle 2.5px at 82% 28%,rgba(255,255,255,.55),transparent 60%);
+  animation:bubbleRise 2.5s linear infinite;
+}
+@keyframes bubbleRise{from{background-position:0 0,0 0,0 0;}to{background-position:0 -120px,0 -160px,0 -200px;}}
+.layer.fx-gradient{background-image:linear-gradient(180deg,rgba(255,255,255,.35),rgba(0,0,0,.12));}
+.flask-base{width:68px;height:7px;border-radius:0 0 6px 6px;background:rgba(255,255,255,.06);margin-top:-3px;}
+.flask-num{font-size:11px;color:var(--txt-dim);font-weight:700;}
+
+.confetti-piece{position:absolute;width:7px;height:10px;border-radius:2px;pointer-events:none;animation:confettiFall 1.3s ease-out forwards;}
+@keyframes confettiFall{to{transform:translateY(240px) rotate(600deg);opacity:0;}}
+
+.game-bottom{
+  width:100%;max-width:780px;
+  display:flex;justify-content:center;align-items:center;
+  gap:10px;padding:8px 14px 16px;flex-shrink:0;
+}
+
+/* ── Hint modal ── */
+#modal-hint .modal{gap:16px;}
+.hint-text{
+  font-size:15px;color:var(--txt-mid);line-height:1.7;text-align:left;
+  background:rgba(126,232,250,.06);border:1px solid rgba(126,232,250,.15);
+  border-radius:14px;padding:14px 16px;
+}
+.hint-text strong{color:var(--accent-3);font-weight:800;}
+.hint-loader{
+  display:flex;align-items:center;justify-content:center;gap:6px;
+  color:var(--txt-dim);font-size:14px;padding:10px 0;
+}
+.hint-loader span{
+  width:8px;height:8px;border-radius:50%;background:var(--accent-3);
+  animation:dotPulse 1.2s ease-in-out infinite;
+}
+.hint-loader span:nth-child(2){animation-delay:.2s;}
+.hint-loader span:nth-child(3){animation-delay:.4s;}
+@keyframes dotPulse{0%,80%,100%{transform:scale(.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+
+/* ── Win modal ── */
+.modal-bg{
+  position:fixed;inset:0;background:rgba(4,3,12,.75);backdrop-filter:blur(6px);
+  display:none;align-items:center;justify-content:center;z-index:100;
+}
+.modal-bg.show{display:flex;animation:fadeIn .25s ease;}
+.modal{
+  padding:30px 28px;width:min(360px,88vw);text-align:center;
+  display:flex;flex-direction:column;gap:14px;position:relative;overflow:hidden;
+}
+.modal::before{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(255,126,179,.08),transparent 70%);
+  pointer-events:none;
+}
+.modal h2{margin:0;font-size:24px;font-weight:900;}
+.modal .stars{font-size:32px;letter-spacing:8px;filter:drop-shadow(0 0 8px rgba(255,209,102,.5));}
+
+/* ── Shop ── */
+.shop-tabs{display:flex;gap:8px;width:min(780px,94vw);padding:6px 0;}
+.shop-tabs button{flex:1;}
+.shop-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(148px,1fr));
+  gap:14px;width:min(780px,94vw);padding:10px 4px 30px;
+}
+.shop-item{padding:18px 14px;border-radius:18px;display:flex;flex-direction:column;align-items:center;gap:10px;}
+.shop-preview{width:72px;height:92px;display:flex;align-items:center;justify-content:center;}
+.shop-item h4{margin:0;font-size:14px;font-weight:800;text-align:center;}
+
+/* ── Header ── */
+.headerline{width:100%;max-width:780px;display:flex;align-items:center;gap:12px;padding:16px 16px 4px;}
+.headerline h2{margin:0;font-size:19px;font-weight:900;flex:1;text-align:center;margin-right:46px;}
+
+::-webkit-scrollbar{width:5px;}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,.12);border-radius:3px;}
+
+@media (max-width:480px){
+  .flask{width:46px;height:158px;}
+  .flask-base{width:54px;}
+  .title-xl{font-size:26px;}
+  .game-board{gap:10px;padding:8px 6px;}
+}
+@media (max-width:360px){
+  .flask{width:40px;height:140px;}
+}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- AUTH -->
+<div class="screen active" id="screen-auth">
+  <div class="auth-wrap">
+    <div class="auth-logo">🧪</div>
+    <div class="title-xl" style="text-align:center;margin-bottom:2px;">Колбочки мамы</div>
+    <div class="muted" style="text-align:center;font-size:14px;margin-bottom:12px;">Уютная сортировка воды 💗</div>
+    <div class="card auth-box">
+      <div class="auth-tabs">
+        <button class="active" id="tab-login">Войти</button>
+        <button id="tab-register">Регистрация</button>
+      </div>
+      <input class="field" id="auth-login" placeholder="Логин" autocomplete="off">
+      <input class="field" id="auth-pass" type="password" placeholder="Пароль" autocomplete="current-password">
+      <div class="auth-msg" id="auth-msg"></div>
+      <button class="btn primary" id="auth-submit">Войти</button>
+      <div class="auth-divider">или</div>
+      <button class="btn" id="auth-guest" style="opacity:.8;">👤 Играть как гость</button>
+    </div>
+  </div>
+</div>
+
+<!-- TUTORIAL -->
+<div class="screen" id="screen-tutorial">
+  <div class="tutorial-wrap card" style="margin:auto;">
+    <div class="tut-step" id="tut-content"></div>
+    <div style="padding:0 28px 24px;display:flex;flex-direction:column;gap:14px;">
+      <div class="tut-dots" id="tut-dots"></div>
+      <div class="tut-nav">
+        <button class="btn" id="tut-prev" style="flex:1;">← Назад</button>
+        <button class="btn primary" id="tut-next" style="flex:2;">Дальше →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div class="screen" id="screen-menu">
+  <div class="topbar">
+    <div class="card profile-pill">
+      <div class="avatar" id="menu-avatar">?</div>
+      <div>
+        <div style="font-weight:800;font-size:14px;" id="menu-name">Игрок</div>
+        <div class="muted" style="font-size:11px;" id="menu-stats">0 уровней</div>
+      </div>
+    </div>
+    <div class="spacer"></div>
+    <div class="card badge" id="menu-coins-wrap"><span class="coin" id="menu-coins">0</span></div>
+    <button class="btn icon" id="btn-logout" title="Выйти" style="font-size:17px;">⏻</button>
+  </div>
+  <div class="menu-wrap">
+    <div class="menu-title">✨ Выберите сложность</div>
+    <div class="diff-grid" id="diff-grid"></div>
+    <div class="menu-footer">
+      <button class="btn gold" id="btn-shop">🛍 Магазин</button>
+      <button class="btn" id="btn-tutorial">📖 Обучение</button>
+    </div>
+  </div>
+</div>
+
+<!-- GAME -->
+<div class="screen" id="screen-game">
+  <div class="game-top">
+    <button class="btn icon" id="game-back" style="font-size:17px;">←</button>
+    <div class="card game-info" id="game-level-label">Уровень</div>
+    <div class="moves-badge" id="game-moves">0 ходов</div>
+    <div class="spacer"></div>
+    <div class="card badge"><span class="coin" id="game-coins">0</span></div>
+  </div>
+  <div class="game-board" id="game-board"></div>
+  <div class="game-bottom">
+    <button class="btn icon" id="btn-undo" title="Отмена хода">↩</button>
+    <button class="btn icon" id="btn-restart" title="Начать заново">⟲</button>
+    <button class="btn hint-btn" id="btn-hint" style="flex:1;font-size:14px;">💡 Подсказка</button>
+  </div>
+</div>
+
+<!-- SHOP -->
+<div class="screen" id="screen-shop">
+  <div class="headerline">
+    <button class="btn icon" id="shop-back">←</button>
+    <h2>Магазин скинов</h2>
+  </div>
+  <div class="row" style="margin:4px 0 2px;">
+    <div class="card badge"><span class="coin" id="shop-coins">0</span></div>
+  </div>
+  <div class="shop-tabs">
+    <button class="btn small active" id="shop-tab-flasks">🧪 Колбочки</button>
+    <button class="btn small" id="shop-tab-water">💧 Эффекты</button>
+  </div>
+  <div class="shop-grid" id="shop-grid"></div>
+</div>
+
+</div>
+
+<!-- WIN MODAL -->
+<div class="modal-bg" id="modal-win">
+  <div class="card modal">
+    <div class="stars">★★★</div>
+    <h2>Уровень пройден! 🎉</h2>
+    <div class="mid" id="win-stats" style="font-size:14px;">Ходов: 0</div>
+    <div class="coin" id="win-coins" style="justify-content:center;font-size:20px;font-weight:900;">+0</div>
+    <div class="row" style="justify-content:center;gap:10px;">
+      <button class="btn" id="win-menu" style="flex:1;">В меню</button>
+      <button class="btn primary" id="win-next" style="flex:1.5;">Дальше →</button>
+    </div>
+  </div>
+</div>
+
+<!-- HINT MODAL -->
+<div class="modal-bg" id="modal-hint">
+  <div class="card modal">
+    <div style="font-size:28px;">💡</div>
+    <h2 style="font-size:20px;">Подсказка</h2>
+    <div id="hint-body">
+      <div class="hint-loader">
+        <span></span><span></span><span></span>
+        <span style="margin-left:6px;font-size:14px;">Думаю...</span>
+      </div>
+    </div>
+    <div class="row" style="justify-content:center;gap:10px;">
+      <button class="btn" id="hint-close" style="flex:1;">Закрыть</button>
+      <button class="btn hint-btn" id="hint-show-move" style="flex:1.5;display:none;">👁 Показать ход</button>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){
+"use strict";
+
+/* ============================================================
+   1. УТИЛИТЫ
+============================================================ */
+function mulberry32(seed){
+  return function(){
+    seed|=0; seed=(seed+0x6D2B79F5)|0;
+    let t=Math.imul(seed^(seed>>>15),1|seed);
+    t=(t+Math.imul(t^(t>>>7),61|t))^t;
+    return ((t^(t>>>14))>>>0)/4294967296;
+  };
+}
+function clone(x){return JSON.parse(JSON.stringify(x));}
+// Надёжный обработчик тапа для iPhone/iPad/Android/десктоп.
+// Используем обычный "click" — на iOS Safari он всегда срабатывает на
+// элементах с cursor:pointer и/или явным обработчиком, в отличие от
+// Pointer Events, которые на части iOS-версий ведут себя нестабильно
+// внутри прокручиваемых контейнеров и transform'ов.
+function bindTap(el,handler){
+  if(!el) return;
+  el.style.cursor="pointer";
+  el.addEventListener("click",function(e){
+    handler(e);
+  },false);
+}
+
+/* ============================================================
+   2. ЦВЕТА
+============================================================ */
+const PALETTE=[
+  "#ff4d6d","#3ddc97","#4d8dff","#ffd166","#b78bfa","#ff8c42",
+  "#06d6a0","#ef476f","#7bdff2","#f15bb5","#9b5de5","#00bbf9",
+  "#fee440","#f72585","#43aa8b","#577590"
+];
+
+/* ============================================================
+   3. ИГРОВАЯ ЛОГИКА
+============================================================ */
+const CAPACITY=4;
+
+function topInfo(flask){
+  if(!flask.length) return{color:null,count:0};
+  const c=flask[flask.length-1];
+  let cnt=0;
+  for(let i=flask.length-1;i>=0;i--){if(flask[i]===c)cnt++;else break;}
+  return{color:c,count:cnt};
+}
+function canPour(flasks,from,to,cap){
+  if(from===to) return 0;
+  const f=flasks[from],t=flasks[to];
+  if(!f.length||t.length>=cap) return 0;
+  const ti=topInfo(f);
+  if(t.length>0&&t[t.length-1]!==ti.color) return 0;
+  return Math.min(ti.count,cap-t.length);
+}
+function doPour(flasks,from,to,cap){
+  const amt=canPour(flasks,from,to,cap); if(!amt) return false;
+  const color=flasks[from][flasks[from].length-1];
+  for(let i=0;i<amt;i++){flasks[from].pop();flasks[to].push(color);}
+  return true;
+}
+function isSolved(flasks,cap){
+  return flasks.every(f=>f.length===0||(f.length===cap&&f.every(c=>c===f[0])));
+}
+
+/* ── Поиск одного подсказочного хода (BFS 1 уровень) ── */
+function findHint(flasks,cap){
+  // Находим первый полезный ход: не просто допустимый, а реально продвигающий вперёд
+  const n=flasks.length;
+  let best=null, bestScore=-Infinity;
+  for(let fr=0;fr<n;fr++){
+    for(let to=0;to<n;to++){
+      const amt=canPour(flasks,fr,to,cap);
+      if(!amt) continue;
+      const tmp=clone(flasks);
+      doPour(tmp,fr,to,cap);
+      // оценка: больше монохромных заполненных колб = лучше
+      let score=0;
+      tmp.forEach(f=>{
+        if(f.length===cap&&f.every(c=>c===f[0])) score+=100;
+        if(f.length>0&&f.every(c=>c===f[0])) score+=f.length*5;
+      });
+      if(score>bestScore){bestScore=score;best={from:fr,to};}
+    }
+  }
+  return best;
+}
+
+/* ============================================================
+   4. ГЕНЕРАЦИЯ УРОВНЕЙ
+============================================================ */
+function generateLevel(numColors,numFlasks,emptyFlasks,seed){
+  const rand=mulberry32(seed);
+  const pool=[];
+  for(let c=0;c<numColors;c++) for(let i=0;i<CAPACITY;i++) pool.push(c);
+  for(let i=pool.length-1;i>0;i--){
+    const j=Math.floor(rand()*(i+1));
+    const tmp=pool[i];pool[i]=pool[j];pool[j]=tmp;
+  }
+  const flasks=[];
+  for(let f=0;f<numColors;f++) flasks.push(pool.splice(0,CAPACITY));
+  for(let i=0;i<emptyFlasks;i++) flasks.push([]);
+  if(isSolved(flasks,CAPACITY)){
+    const tmp=flasks[0][0];flasks[0][0]=flasks[1][0];flasks[1][0]=tmp;
+  }
+  return flasks;
+}
+
+/* ============================================================
+   5. СЛОЖНОСТИ
+============================================================ */
+const DIFFICULTIES=[
+  {id:"child", name:"Ребёнок",   emoji:"🌱", color:"#3ddc97", baseColors:2, maxColors:4,  baseEmpty:1},
+  {id:"normal",name:"Обычный",   emoji:"💧", color:"#4d8dff", baseColors:4, maxColors:6,  baseEmpty:2},
+  {id:"hard40",name:"40+",       emoji:"🔥", color:"#ffd166", baseColors:6, maxColors:9,  baseEmpty:2},
+  {id:"ultra", name:"Ультра",    emoji:"⚡", color:"#b78bfa", baseColors:9, maxColors:12, baseEmpty:2},
+  {id:"hell",  name:"Пекло",     emoji:"💀", color:"#ff4d6d", baseColors:13,maxColors:16, baseEmpty:3},
+];
+function getLevelConfig(diff,levelNumber){
+  const colorGrowth=Math.floor((levelNumber-1)/3);
+  const colors=Math.min(diff.maxColors,diff.baseColors+colorGrowth);
+  const bonusEmpty=Math.floor((levelNumber-1)/10);
+  const empty=diff.baseEmpty+bonusEmpty;
+  const seed=(diff.id.length*7777)+diff.maxColors*1000+levelNumber*131+11;
+  return{colors,flasks:colors+empty,empty,seed};
+}
+
+/* ============================================================
+   6. СКИНЫ
+============================================================ */
+const FLASK_SHAPES=[
+  {cls:"",             name:"Классика"},
+  {cls:"shape-round",  name:"Капсула"},
+  {cls:"shape-square", name:"Пробирка"},
+  {cls:"shape-magic",  name:"Флакон"},
+  {cls:"shape-cocktail",name:"Бокал"},
+];
+const MATERIALS=[
+  {key:"silver",  name:"Серебро",        border:"rgba(255,255,255,.35)",glow:"rgba(255,255,255,.3)", price:0},
+  {key:"rosegold",name:"Розовое золото", border:"#ff8fb3",             glow:"rgba(255,143,179,.45)",price:90},
+  {key:"gold",    name:"Золото",         border:"#ffd166",             glow:"rgba(255,209,102,.45)",price:140},
+  {key:"emerald", name:"Изумруд",        border:"#3ddc97",             glow:"rgba(61,220,151,.45)", price:180},
+  {key:"sapphire",name:"Сапфир",         border:"#4d8dff",             glow:"rgba(77,141,255,.45)", price:180},
+  {key:"amethyst",name:"Аметист",        border:"#b78bfa",             glow:"rgba(183,139,250,.45)",price:200},
+];
+const FLASK_SKINS=[];
+FLASK_SHAPES.forEach((shape,si)=>{
+  MATERIALS.slice(0,si===0?6:5).forEach((mat,mi)=>{
+    if(si===0&&mi===0){
+      FLASK_SKINS.push({id:"standard",name:"Серебро · "+shape.name,cls:shape.cls,border:mat.border,glow:mat.glow,price:0});
+    } else {
+      FLASK_SKINS.push({id:(shape.cls||"classic")+"-"+mat.key,name:mat.name+" · "+shape.name,cls:shape.cls,border:mat.border,glow:mat.glow,price:mat.price+si*30});
+    }
+  });
+});
+const WATER_FX=[
+  {cls:"",                      name:"Гладкая"},
+  {cls:"fx-glitter",            name:"Глиттер"},
+  {cls:"fx-neon",               name:"Неон"},
+  {cls:"fx-gradient fx-bubbles",name:"Пузырьки"},
+  {cls:"fx-rainbow",            name:"Радуга"},
+];
+const THEMES=[
+  {key:"classic",name:"Обычная",hue:0,  price:0},
+  {key:"rose",   name:"Роза",   hue:330,price:80},
+  {key:"ocean",  name:"Океан",  hue:200,price:120},
+  {key:"sun",    name:"Солнце", hue:50, price:120},
+  {key:"forest", name:"Лес",    hue:130,price:120},
+  {key:"cosmic", name:"Космос", hue:280,price:150},
+];
+const WATER_SKINS=[];
+WATER_FX.forEach((fx,fi)=>{
+  THEMES.slice(0,fi===0?6:5).forEach((th,ti)=>{
+    if(fi===0&&ti===0){
+      WATER_SKINS.push({id:"plain",name:"Обычная вода",cls:fx.cls,hue:0,price:0});
+    } else {
+      WATER_SKINS.push({id:(fx.cls||"plain").replace(/\s+/g,"_")+"-"+th.key,name:th.name+" · "+fx.name,cls:fx.cls,hue:th.hue,price:th.price+fi*25});
+    }
+  });
+});
+
+/* ============================================================
+   7. СОХРАНЕНИЯ
+============================================================ */
+const DB_KEY="wsp_db2";
+const SESSION_KEY="wsp_sess2";
+function loadDB(){try{return JSON.parse(localStorage.getItem(DB_KEY))||{};}catch(e){return{};}}
+function saveDB(db){try{localStorage.setItem(DB_KEY,JSON.stringify(db));}catch(e){}}
+function defaultProgress(){
+  const current={};
+  DIFFICULTIES.forEach(d=>current[d.id]=1);
+  return{coins:100,current,bestCompleted:{},ownedFlasks:["standard"],ownedWater:["plain"],activeFlask:"standard",activeWater:"plain",seenTutorial:false};
+}
+let DB=loadDB();
+let currentUser=null;
+function getProgress(){
+  const p=currentUser==="_guest_"?GUEST_PROGRESS:DB[currentUser].progress;
+  if(!p.current){p.current={};DIFFICULTIES.forEach(d=>p.current[d.id]=1);p.bestCompleted=p.bestCompleted||{};}
+  return p;
+}
+function persist(){if(currentUser!=="_guest_")saveDB(DB);}
+let GUEST_PROGRESS=defaultProgress();
+
+/* ============================================================
+   8. НАВИГАЦИЯ
+============================================================ */
+function showScreen(id){
+  document.querySelectorAll(".screen").forEach(s=>s.classList.remove("active"));
+  document.getElementById(id).classList.add("active");
+}
+
+/* ============================================================
+   9. ОБУЧЕНИЕ
+============================================================ */
+const TUT_STEPS=[
+  {
+    icon:"🧪",
+    title:"Добро пожаловать!",
+    text:`Перед тобой колбы с <strong>разноцветной водой</strong>. Твоя задача — рассортировать их так, чтобы в каждой колбе оказалась вода <strong>только одного цвета</strong>.`,
+    demo:"mixed"
+  },
+  {
+    icon:"👆",
+    title:"Как переливать?",
+    text:`<strong>Нажми на колбу-источник</strong> — она приподнимется. Затем нажми на <strong>колбу-цель</strong>, и вода перельётся. Можно лить только воду <strong>того же цвета</strong>, что уже есть сверху!`,
+    demo:"pour"
+  },
+  {
+    icon:"⚗️",
+    title:"Правило верхнего слоя",
+    text:`Переливается только <strong>верхний слой</strong> одного цвета. Если сверху 2 одинаковых слоя — перельются оба. Пустые колбы принимают <strong>любой цвет</strong>.`,
+    demo:"rule"
+  },
+  {
+    icon:"💡",
+    title:"Подсказки и отмена",
+    text:`Застрял? Жми <strong>💡 Подсказка</strong> — умный помощник подскажет ход. Кнопка <strong>↩</strong> отменяет последний ход. Кнопка <strong>⟲</strong> сбрасывает уровень полностью.`,
+    demo:null
+  },
+  {
+    icon:"🏆",
+    title:"Готов играть?",
+    text:`Выбери сложность: от <strong>Ребёнка</strong> (2 цвета) до <strong>Пекла</strong> (16 цветов). Каждые 10 уровней добавляется бонусная пустая колба. Уровни бесконечны!`,
+    demo:null
+  },
+];
+let tutStep=0;
+function renderTutorial(){
+  const s=TUT_STEPS[tutStep];
+  // dots
+  const dots=document.getElementById("tut-dots");
+  dots.innerHTML="";
+  TUT_STEPS.forEach((_,i)=>{
+    const d=document.createElement("div");
+    d.className="tut-dot"+(i===tutStep?" active":"");
+    dots.appendChild(d);
+  });
+  // content
+  const content=document.getElementById("tut-content");
+  content.innerHTML=`
+    <div class="tut-icon">${s.icon}</div>
+    <div class="tut-title">${s.title}</div>
+    ${s.demo?renderTutDemo(s.demo):""}
+    <div class="tut-text">${s.text}</div>
+  `;
+  document.getElementById("tut-prev").style.opacity=tutStep===0?"0.3":"1";
+  document.getElementById("tut-next").textContent=tutStep===TUT_STEPS.length-1?"🚀 Играть!":"Дальше →";
+}
+function renderTutDemo(type){
+  const colors=["#ff4d6d","#4d8dff","#ffd166","#3ddc97"];
+  if(type==="mixed"){
+    const f1=[colors[0],colors[1],colors[0],colors[1]];
+    const f2=[colors[1],colors[0],colors[1],colors[0]];
+    const f3=[];
+    return`<div class="tut-demo">${[f1,f2,f3].map(f=>`
+      <div class="tut-flask">${f.map(c=>`<div class="tl" style="background:${c};"></div>`).join("")}</div>`).join("")}</div>`;
+  }
+  if(type==="pour"){
+    const f1=[colors[2],colors[0]];
+    const f2=[colors[2]];
+    return`<div class="tut-demo">
+      <div class="tut-flask">${f1.map(c=>`<div class="tl" style="background:${c};"></div>`).join("")}</div>
+      <div style="font-size:22px;align-self:center;opacity:.7;">→</div>
+      <div class="tut-flask">${f2.map(c=>`<div class="tl" style="background:${c};"></div>`).join("")}</div>
+    </div>`;
+  }
+  if(type==="rule"){
+    const solved=[colors[0],colors[0],colors[0],colors[0]];
+    const empty=[];
+    return`<div class="tut-demo">
+      <div class="tut-flask">${solved.map(c=>`<div class="tl" style="background:${c};box-shadow:0 0 8px ${c}88 inset;"></div>`).join("")}</div>
+      <div style="font-size:24px;align-self:center;">✅</div>
+      <div class="tut-flask" style="border-color:rgba(255,255,255,.15);"></div>
+    </div>`;
+  }
+  return"";
+}
+bindTap(document.getElementById("tut-next"),()=>{
+  if(tutStep<TUT_STEPS.length-1){tutStep++;renderTutorial();}
+  else{
+    const p=getProgress();p.seenTutorial=true;persist();
+    renderMenu();showScreen("screen-menu");
+  }
+});
+bindTap(document.getElementById("tut-prev"),()=>{
+  if(tutStep>0){tutStep--;renderTutorial();}
+});
+bindTap(document.getElementById("btn-tutorial"),()=>{
+  tutStep=0;renderTutorial();showScreen("screen-tutorial");
+});
+
+/* ============================================================
+   10. AUTH
+============================================================ */
+let authMode="login";
+const authMsg=document.getElementById("auth-msg");
+bindTap(document.getElementById("tab-login"),()=>{
+  authMode="login";
+  document.getElementById("tab-login").classList.add("active");
+  document.getElementById("tab-register").classList.remove("active");
+  document.getElementById("auth-submit").textContent="Войти";
+  authMsg.textContent="";
+});
+bindTap(document.getElementById("tab-register"),()=>{
+  authMode="register";
+  document.getElementById("tab-register").classList.add("active");
+  document.getElementById("tab-login").classList.remove("active");
+  document.getElementById("auth-submit").textContent="Зарегистрироваться";
+  authMsg.textContent="";
+});
+bindTap(document.getElementById("auth-submit"),()=>{
+  const login=document.getElementById("auth-login").value.trim();
+  const pass=document.getElementById("auth-pass").value;
+  if(login.length<3){authMsg.textContent="Логин от 3 символов";return;}
+  if(pass.length<3){authMsg.textContent="Пароль от 3 символов";return;}
+  const passHash=btoa(unescape(encodeURIComponent(pass)));
+  if(authMode==="register"){
+    if(DB[login]){authMsg.textContent="Логин занят";return;}
+    DB[login]={passHash,progress:defaultProgress()};saveDB(DB);loginAs(login);
+  } else {
+    if(!DB[login]){authMsg.textContent="Пользователь не найден";return;}
+    if(DB[login].passHash!==passHash){authMsg.textContent="Неверный пароль";return;}
+    loginAs(login);
+  }
+});
+bindTap(document.getElementById("auth-guest"),()=>loginAs("_guest_"));
+function loginAs(user){
+  currentUser=user;
+  try{localStorage.setItem(SESSION_KEY,user);}catch(e){}
+  const p=getProgress();
+  if(!p.seenTutorial){tutStep=0;renderTutorial();showScreen("screen-tutorial");}
+  else{renderMenu();showScreen("screen-menu");}
+}
+bindTap(document.getElementById("btn-logout"),()=>{
+  try{localStorage.removeItem(SESSION_KEY);}catch(e){}
+  currentUser=null;
+  document.getElementById("auth-login").value="";
+  document.getElementById("auth-pass").value="";
+  showScreen("screen-auth");
+});
+(function tryAutoLogin(){
+  try{
+    const sess=localStorage.getItem(SESSION_KEY);
+    if(sess&&(sess==="_guest_"||DB[sess]))loginAs(sess);
+  }catch(e){}
+})();
+
+/* ============================================================
+   11. МЕНЮ
+============================================================ */
+function totalCompleted(){
+  const p=getProgress();
+  return DIFFICULTIES.reduce((s,d)=>s+Math.max(0,(p.current[d.id]||1)-1),0);
+}
+function renderMenu(){
+  const p=getProgress();
+  document.getElementById("menu-name").textContent=currentUser==="_guest_"?"Гость":currentUser;
+  document.getElementById("menu-avatar").textContent=(currentUser==="_guest_"?"G":currentUser[0]).toUpperCase();
+  document.getElementById("menu-stats").textContent=totalCompleted()+" уровней пройдено";
+  document.getElementById("menu-coins").textContent=p.coins;
+  const grid=document.getElementById("diff-grid");
+  grid.innerHTML="";
+  DIFFICULTIES.forEach((d,di)=>{
+    const curLevel=p.current[d.id]||1;
+    const cfg=getLevelConfig(d,curLevel);
+    const div=document.createElement("div");
+    div.className="card diff-card";
+    div.innerHTML=`
+      <div class="dot" style="background:${d.color};--dot-glow:${d.color}66;"></div>
+      <h3>${d.emoji} ${d.name}</h3>
+      <p>${cfg.colors} цв. · ${cfg.flasks} колб</p>
+      <div class="prog">Уровень ${curLevel}</div>`;
+    bindTap(div,()=>startLevel(di));
+    grid.appendChild(div);
+  });
+}
+bindTap(document.getElementById("btn-shop"),()=>openShop());
+bindTap(document.getElementById("game-back"),()=>{renderMenu();showScreen("screen-menu");});
+
+/* ============================================================
+   12. ИГРА
+============================================================ */
+let game=null;
+
+function startLevel(di){
+  const d=DIFFICULTIES[di];
+  const p=getProgress();
+  const levelNumber=p.current[d.id]||1;
+  document.getElementById("game-level-label").textContent=d.emoji+" "+d.name+" · Уровень "+levelNumber;
+  document.getElementById("game-coins").textContent=p.coins;
+  document.getElementById("game-moves").textContent="0 ходов";
+  document.getElementById("game-board").innerHTML=`
+    <div style="color:var(--txt-dim);font-size:14px;text-align:center;width:100%;padding:48px 0;font-weight:700;">
+      ⚗️ Готовим уровень...
+    </div>`;
+  showScreen("screen-game");
+  setTimeout(()=>{
+    const cfg=getLevelConfig(d,levelNumber);
+    const flasks=generateLevel(cfg.colors,cfg.flasks,cfg.empty,cfg.seed);
+    game={diffIdx:di,levelNumber,flasks:clone(flasks),initial:clone(flasks),capacity:CAPACITY,history:[],moves:0,freeUndoLeft:2,selected:-1,hintFrom:-1,hintTo:-1};
+    renderBoard();
+  },30);
+}
+
+function renderBoard(){
+  const board=document.getElementById("game-board");
+  board.innerHTML="";
+  const p=getProgress();
+  const flaskSkin=FLASK_SKINS.find(s=>s.id===p.activeFlask)||FLASK_SKINS[0];
+  const waterSkin=WATER_SKINS.find(s=>s.id===p.activeWater)||WATER_SKINS[0];
+  document.getElementById("game-moves").textContent=game.moves+" ход"+(game.moves===1?"":"ов");
+
+  game.flasks.forEach((flask,idx)=>{
+    const wrap=document.createElement("div");
+    wrap.className="flask-wrap";
+    const f=document.createElement("div");
+    f.className="flask "+flaskSkin.cls;
+    if(flaskSkin.border){
+      f.style.borderColor=flaskSkin.border;
+      f.style.setProperty("--flask-border",flaskSkin.border);
+      f.style.boxShadow=`inset 0 0 14px rgba(0,0,0,.5),0 6px 16px rgba(0,0,0,.4),0 0 14px 1px ${flaskSkin.glow||"transparent"}`;
+    }
+    if(idx===game.selected) f.classList.add("selected");
+    if(idx===game.hintFrom) f.classList.add("hint-from");
+    if(idx===game.hintTo) f.classList.add("hint-to");
+    // Подсветка решённой колбы
+    if(flask.length===game.capacity&&flask.every(c=>c===flask[0])) f.classList.add("win-glow");
+    f.dataset.idx=idx;
+    const stack=document.createElement("div");
+    stack.className="liquid-stack";
+    flask.forEach(ci=>{
+      const layer=document.createElement("div");
+      layer.className="layer "+waterSkin.cls;
+      layer.style.flexBasis=(100/game.capacity)+"%";
+      layer.style.background=PALETTE[ci%PALETTE.length];
+      layer.style.color=PALETTE[ci%PALETTE.length];
+      layer.style.setProperty("--hue",(waterSkin.hue||0)+"deg");
+      stack.appendChild(layer);
+    });
+    f.appendChild(stack);
+    bindTap(f,()=>handleFlaskClick(idx));
+    wrap.appendChild(f);
+    const base=document.createElement("div");
+    base.className="flask-base";
+    if(flaskSkin.cls.includes("shape-cocktail")) base.style.opacity="0";
+    wrap.appendChild(base);
+    const num=document.createElement("div");
+    num.className="flask-num";num.textContent=idx+1;
+    wrap.appendChild(num);
+    board.appendChild(wrap);
+  });
+}
+
+function handleFlaskClick(idx){
+  // Сброс подсказки при клике
+  game.hintFrom=-1;game.hintTo=-1;
+  if(game.selected===-1){
+    if(!game.flasks[idx].length) return;
+    game.selected=idx;renderBoard();return;
+  }
+  if(game.selected===idx){game.selected=-1;renderBoard();return;}
+  const amt=canPour(game.flasks,game.selected,idx,game.capacity);
+  if(!amt){
+    if(game.flasks[idx].length){game.selected=idx;}
+    else{
+      game.selected=-1;
+      const el=document.querySelector(`.flask[data-idx="${idx}"]`);
+      if(el){el.classList.add("shake");setTimeout(()=>el.classList.remove("shake"),350);}
+    }
+    renderBoard();return;
+  }
+  game.history.push(clone(game.flasks));
+  doPour(game.flasks,game.selected,idx,game.capacity);
+  game.moves++;game.selected=-1;
+  renderBoard();
+  if(isSolved(game.flasks,game.capacity)) setTimeout(onWin,320);
+}
+
+bindTap(document.getElementById("btn-undo"),()=>{
+  if(!game.history.length) return;
+  const p=getProgress();
+  if(game.freeUndoLeft>0){game.freeUndoLeft--;}
+  else{
+    if(p.coins<15){flashCoinsLack();return;}
+    p.coins-=15;persist();
+    document.getElementById("game-coins").textContent=p.coins;
+  }
+  game.flasks=game.history.pop();
+  game.selected=-1;game.hintFrom=-1;game.hintTo=-1;
+  renderBoard();
+});
+bindTap(document.getElementById("btn-restart"),()=>{
+  game.flasks=clone(game.initial);game.history=[];game.moves=0;
+  game.freeUndoLeft=2;game.selected=-1;game.hintFrom=-1;game.hintTo=-1;
+  renderBoard();
+});
+function flashCoinsLack(){
+  const el=document.getElementById("game-coins");
+  el.style.color="var(--bad)";setTimeout(()=>el.style.color="",600);
+}
+
+/* ============================================================
+   13. ПОДСКАЗКА (AI через Anthropic API)
+============================================================ */
+let hintMove=null;
+
+bindTap(document.getElementById("btn-hint"),()=>showHintModal());
+bindTap(document.getElementById("hint-close"),()=>{
+  document.getElementById("modal-hint").classList.remove("show");
+});
+bindTap(document.getElementById("hint-show-move"),()=>{
+  document.getElementById("modal-hint").classList.remove("show");
+  if(hintMove){
+    game.hintFrom=hintMove.from;
+    game.hintTo=hintMove.to;
+    renderBoard();
+    setTimeout(()=>{
+      if(game){game.hintFrom=-1;game.hintTo=-1;renderBoard();}
+    },3500);
+  }
+});
+
+async function showHintModal(){
+  hintMove=null;
+  document.getElementById("hint-show-move").style.display="none";
+  document.getElementById("hint-body").innerHTML=`
+    <div class="hint-loader">
+      <span></span><span></span><span></span>
+      <span style="margin-left:6px;font-size:14px;">Думаю над подсказкой...</span>
+    </div>`;
+  document.getElementById("modal-hint").classList.add("show");
+
+  // Находим лучший ход локально
+  const localHint=findHint(game.flasks,game.capacity);
+
+  // Описываем состояние для AI
+  const stateDesc=game.flasks.map((f,i)=>{
+    if(!f.length) return`Колба ${i+1}: пустая`;
+    const names=f.map(ci=>colorName(ci));
+    return`Колба ${i+1}: [${names.join(", ")}] (снизу→верх)`;
+  }).join("\n");
+
+  const fromDesc=localHint?`Лучший ход: перелить из колбы ${localHint.from+1} в колбу ${localHint.to+1}.`:"Ходов не найдено — попробуй отменить ход.";
+
+  const prompt=`Ты — весёлый и саркастичный помощник в игре "Сортировка воды по колбам". Тебе дают состояние игрового поля и лучший ход, и ты должен написать КОРОТКУЮ подсказку (2-3 предложения).
+
+ВАЖНО: начни подсказку с саркастичной фразы о том, как вообще можно было тут запутаться — типа "Блин, ну это же очевидно 🙄", "О боже, серьёзно?? 😅", "Я просто не могу 💀" и т.д. Потом объясни ход просто и понятно.
+
+Текущее состояние:
+${stateDesc}
+
+${fromDesc}
+
+Напиши подсказку на русском, живо и с характером. Используй 1-2 эмодзи.`;
+
+  try{
+    const resp=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json"},
+      body:JSON.stringify({
+        model:"claude-sonnet-4-6",
+        max_tokens:200,
+        messages:[{role:"user",content:prompt}]
+      })
+    });
+    const data=await resp.json();
+    const text=(data.content&&data.content[0]&&data.content[0].text)||fromDesc;
+    hintMove=localHint;
+    document.getElementById("hint-body").innerHTML=`<div class="hint-text">${escapeHtml(text).replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")}</div>`;
+    if(localHint) document.getElementById("hint-show-move").style.display="";
+  }catch(e){
+    // Фоллбэк без AI
+    hintMove=localHint;
+    let fallback;
+    if(localHint){
+      fallback=`Слушай, ну это же элементарно 😏 Перелей из <strong>колбы ${localHint.from+1}</strong> в <strong>колбу ${localHint.to+1}</strong>. Дерзай!`;
+    } else {
+      fallback=`Хм, кажется ты основательно застрял 🤔 Попробуй отменить несколько ходов кнопкой ↩ и попробовать другой путь.`;
+    }
+    document.getElementById("hint-body").innerHTML=`<div class="hint-text">${fallback}</div>`;
+    if(localHint) document.getElementById("hint-show-move").style.display="";
+  }
+}
+
+function colorName(ci){
+  const names=["Красный","Зелёный","Синий","Жёлтый","Фиолетовый","Оранжевый","Мятный","Розово-красный","Голубой","Розовый","Пурпурный","Небесный","Лимонный","Малиновый","Изумрудный","Синевато-серый"];
+  return names[ci%names.length]||("Цвет "+(ci+1));
+}
+function escapeHtml(str){
+  return str.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+
+/* ============================================================
+   14. ПОБЕДА
+============================================================ */
+function onWin(){
+  const d=DIFFICULTIES[game.diffIdx];
+  const p=getProgress();
+  const reward=10+Math.max(0,30-game.moves)+Math.floor(game.levelNumber/3)*5;
+  p.coins+=reward;
+  p.current[d.id]=game.levelNumber+1;
+  p.bestCompleted[d.id]=Math.max(p.bestCompleted[d.id]||0,game.levelNumber);
+  persist();
+  document.getElementById("win-stats").textContent=d.emoji+" Уровень "+game.levelNumber+" · Ходов: "+game.moves;
+  document.getElementById("win-coins").textContent="+"+reward+" монет";
+  document.getElementById("game-coins").textContent=p.coins;
+  spawnConfetti();
+  document.getElementById("modal-win").classList.add("show");
+}
+function spawnConfetti(){
+  const board=document.getElementById("game-board");
+  for(let i=0;i<30;i++){
+    const p=document.createElement("div");
+    p.className="confetti-piece";
+    p.style.left=(8+Math.random()*84)+"%";
+    p.style.top="0";
+    p.style.background=PALETTE[Math.floor(Math.random()*PALETTE.length)];
+    p.style.animationDelay=(Math.random()*.4)+"s";
+    p.style.width=(6+Math.random()*5)+"px";
+    p.style.height=(8+Math.random()*7)+"px";
+    p.style.borderRadius=Math.random()>.5?"50%":"3px";
+    board.appendChild(p);
+    setTimeout(()=>p.remove(),1600);
+  }
+}
+bindTap(document.getElementById("win-menu"),()=>{
+  document.getElementById("modal-win").classList.remove("show");
+  renderMenu();showScreen("screen-menu");
+});
+bindTap(document.getElementById("win-next"),()=>{
+  const di=game?game.diffIdx:0;
+  document.getElementById("modal-win").classList.remove("show");
+  startLevel(di);
+});
+
+/* ============================================================
+   15. МАГАЗИН
+============================================================ */
+let shopTab="flasks";
+bindTap(document.getElementById("shop-tab-flasks"),()=>{shopTab="flasks";toggleShopTabs();renderShop();});
+bindTap(document.getElementById("shop-tab-water"),()=>{shopTab="water";toggleShopTabs();renderShop();});
+function toggleShopTabs(){
+  document.getElementById("shop-tab-flasks").classList.toggle("active",shopTab==="flasks");
+  document.getElementById("shop-tab-water").classList.toggle("active",shopTab==="water");
+}
+function openShop(){toggleShopTabs();renderShop();showScreen("screen-shop");}
+bindTap(document.getElementById("shop-back"),()=>{renderMenu();showScreen("screen-menu");});
+function renderShop(){
+  const p=getProgress();
+  document.getElementById("shop-coins").textContent=p.coins;
+  const grid=document.getElementById("shop-grid");
+  grid.innerHTML="";
+  const list=shopTab==="flasks"?FLASK_SKINS:WATER_SKINS;
+  const owned=shopTab==="flasks"?p.ownedFlasks:p.ownedWater;
+  const active=shopTab==="flasks"?p.activeFlask:p.activeWater;
+  list.forEach(item=>{
+    const isOwned=owned.includes(item.id),isActive=active===item.id;
+    const card=document.createElement("div");
+    card.className="card shop-item";
+    const preview=document.createElement("div");
+    preview.className="shop-preview";
+    if(shopTab==="flasks"){
+      const bs=item.border?`border-color:${item.border};box-shadow:0 0 12px ${item.glow||"transparent"};--flask-border:${item.border};`:"";
+      preview.innerHTML=`<div class="flask ${item.cls}" style="width:38px;height:66px;pointer-events:none;${bs}">
+        <div class="liquid-stack">
+          <div class="layer" style="flex-basis:25%;background:${PALETTE[0]};"></div>
+          <div class="layer" style="flex-basis:25%;background:${PALETTE[1]};"></div>
+        </div></div>`;
+    } else {
+      preview.innerHTML=`<div style="width:38px;height:66px;border:2.5px solid rgba(255,255,255,.22);border-radius:0 0 12px 12px;overflow:hidden;display:flex;flex-direction:column-reverse;">
+        <div class="layer ${item.cls}" style="flex-basis:50%;background:${PALETTE[3]};color:${PALETTE[3]};--hue:${item.hue||0}deg;"></div>
+        <div class="layer ${item.cls}" style="flex-basis:50%;background:${PALETTE[4]};color:${PALETTE[4]};--hue:${item.hue||0}deg;"></div></div>`;
+    }
+    card.appendChild(preview);
+    const h=document.createElement("h4");h.textContent=item.name;card.appendChild(h);
+    const btnRow=document.createElement("div");
+    if(isActive){
+      const b=document.createElement("button");b.className="btn small teal";b.textContent="✓ Надето";b.disabled=true;
+      btnRow.appendChild(b);
+    } else if(isOwned){
+      const b=document.createElement("button");b.className="btn small primary";b.textContent="Надеть";
+      bindTap(b,()=>{if(shopTab==="flasks")p.activeFlask=item.id;else p.activeWater=item.id;persist();renderShop();});
+      btnRow.appendChild(b);
+    } else {
+      const b=document.createElement("button");b.className="btn small gold";b.textContent="◈ "+item.price;
+      b.disabled=p.coins<item.price;
+      bindTap(b,()=>{
+        if(p.coins<item.price)return;
+        p.coins-=item.price;
+        if(shopTab==="flasks")p.ownedFlasks.push(item.id);else p.ownedWater.push(item.id);
+        persist();renderShop();
+      });
+      btnRow.appendChild(b);
+    }
+    card.appendChild(btnRow);
+    grid.appendChild(card);
+  });
+}
+
+})();
+</script>
+</body>
+</html>
